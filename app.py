@@ -5,18 +5,19 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 app = Flask(__name__, template_folder="templates")
 
 #Flask app routing
-@app.route("/", methods=["GET"])
+@app.route("/home", methods=["GET"])
 def home():
-    return "<h1>Welcome to the Home Page</h1>"
+    return render_template("home.html")
+    
 
 @app.route("/index", methods=["GET"])
 def index():
-    return "<h3>Welocme to the index page</h3>"
+    return render_template("index.html")
 
 # Variable rule
 @app.route("/marks/<int:score>")
 def marks(score):
-    return "You  have passed and your score is: " + str(score)
+    return "You have passed and your score is: " + str(score)
 
 
 @app.route("/fail/<int:score>")
@@ -49,7 +50,7 @@ def calculate():
             res = "fail"
         
         return redirect(url_for(res, score = average_marks))   
-        #return render_template("calculate.html", score = average_marks)
+        # return render_template("calculate.html", score = average_marks)
 
 @app.route('/api', methods=["POST"])
 def api_cal():
